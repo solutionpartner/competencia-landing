@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Com es mou el teu sector? Escolta-ho — SolutionPartner.AI</title>
+<link rel="icon" type="image/png" href="logo.png">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{spai:'#0b1d32',gold2:'#e7c47d'}}}};</script>
+<style>body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+.num{font-variant-numeric:tabular-nums;}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.04)}}
+.pulse{animation:pulse 1.4s infinite;}
+</style>
+</head>
+<body class="bg-slate-50 text-spai">
+
+<nav class="bg-spai text-white py-4">
+  <div class="max-w-6xl mx-auto px-4 flex items-center gap-3">
+    <img src="logo.png" class="h-10" alt="SolutionPartner">
+    <span class="font-semibold tracking-wide">AI DATA NEWS <span class="text-gold2">&amp;</span> · <span class="text-gold2">SolutionPartner</span>.AI</span>
+  </div>
+</nav>
+
+<header class="bg-gradient-to-br from-spai to-slate-800 text-white text-center px-4 py-12">
+  <div class="max-w-3xl mx-auto">
+    <span class="inline-block bg-gold2 text-spai text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-wide">📡 COM ES MOU EL TEU SECTOR · GRAN NOTÍCIA</span>
+    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">El teu sector <span class="text-gold2">es mou</span>. Escolta-ho.</h1>
+    <p class="mt-4 text-slate-300 text-lg">Tria el teu sector i mira els números del dia, al ritme d'una gran notícia.</p>
+  </div>
+</header>
+
+<!-- SELECTOR -->
+<section class="max-w-6xl mx-auto px-4 py-6">
+  <div id="selectores" class="flex flex-wrap gap-2 justify-center"></div>
+</section>
+
+<!-- PANEL -->
+<section class="max-w-6xl mx-auto px-4 pb-10">
+  <div id="loading" class="hidden text-center py-10 text-slate-400 text-lg">Penjant els números...</div>
+  <div id="panel" class="hidden bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+    <div class="bg-gradient-to-r from-spai to-slate-800 text-white px-6 py-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-gold2">📡 Moment de mercat</div>
+          <div id="sectorNom" class="text-2xl font-extrabold mt-1">Sector</div>
+        </div>
+        <!-- AUDIO -->
+        <div class="flex items-center gap-3">
+          <button id="playBtn" class="bg-gold2 text-spai font-extrabold px-6 py-3 rounded-2xl hover:opacity-90 transition shadow-lg flex items-center gap-2 text-lg">
+            <span id="playIco">▶</span> <span id="playTxt">Escolta la gran notícia</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIS animats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-6">
+      <div id="kpis"></div>
+    </div>
+
+    <!-- MOMENTUM (gràfic) -->
+    <div class="px-6 pb-6">
+      <div class="text-sm font-bold uppercase tracking-wide text-slate-500 mb-2">Momentum del sector <span class="text-slate-400 font-normal">(evolució estimada)</span></div>
+      <div id="graf" class="flex items-end gap-1 h-40 rounded-xl bg-slate-50 border border-slate-200 p-4"></div>
+      <p class="text-[11px] text-slate-400 mt-2">Representació visual del ritme de creixement del sector, amb les dades internes de SolutionPartner.</p>
+    </div>
+  </div>
+  <p class="text-center text-slate-400 text-xs mt-4">Els números són reals (dades de sector). La música i la veu, generades amb IA.</p>
+</section>
+
+<!-- CTA -->
+<section class="bg-spai text-white text-center py-12 px-4">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-3xl font-extrabold">El teu sector es mou. El teu negoci, també?</h2>
+    <p class="mt-3 text-slate-300">Diguem-te on estàs perdent diners i què pots automatitzar.</p>
+    <a href="#demo" class="inline-block mt-6 bg-gold2 text-spai font-extrabold px-8 py-4 rounded-2xl text-lg hover:opacity-90 transition shadow-lg">Mira la meva radiografia →</a>
+  </div>
+</section>
+
+<section class="max-w-xl mx-auto px-4 py-12" id="demo">
+  <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+    <span class="inline-block bg-gold2 text-spai text-xs font-bold px-3 py-1 rounded-full mb-2">GRATUÏT · SENSE COMPROMÍS</span>
+    <h2 class="text-2xl font-extrabold">La gran notícia del teu negoci</h2>
+    <p class="text-slate-500 text-sm mt-1 mb-5">Mira on perds diners i què pots recuperar.</p>
+    <form onsubmit="return capturaLead(event)">
+      <div class="grid gap-3">
+        <input name="empresa" placeholder="Nom del negoci" required class="border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-gold2 outline-none">
+        <input name="nom" placeholder="Persona de contacte" required class="border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-gold2 outline-none">
+        <input name="sector" placeholder="Sector" required class="border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-gold2 outline-none">
+        <input name="email" type="email" placeholder="Correu electrònic" required class="border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-gold2 outline-none">
+        <button class="bg-spai text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition mt-1">M'obtenir la meva radiografia →</button>
+      </div>
+      <p class="text-xs text-slate-400 mt-3 text-center">Dades tractades segons RGPD.</p>
+    </form>
+    <div id="ok" class="hidden mt-4 bg-emerald-50 border border-emerald-300 text-emerald-700 font-semibold rounded-lg p-4 text-center">✓ Rebut! Et preparem la teva gran notícia aviat.</div>
+  </div>
+</section>
+
+<footer class="bg-slate-800 text-slate-400 text-center py-5 text-sm">© 2026 SolutionPartner.AI · AI Strategy &amp; Automation</footer>
+
+<script>
+// Dades reals per sector (de sector_kb.db)
+const SECTORS = {
+  dental:{nom:"Clíniques dentals",audio:"aud_dental.mp3",
+    kpis:[["Mercat total","8.000 M€","IDIS 2025"],["Cadenes marquistes","1.305 M€","DBK 2024"],["Creixement cadenes","+7%","DBK 2024"],["Clíniques a Espanya","~22.973","REGCESS"]],
+    momentum:[35,40,46,52,60,68,77,86,96]},
+  veterinaria:{nom:"Veterinària",audio:"aud_veterinaria.mp3",
+    kpis:[["Mercat global","46 Bn USD","MRF 2025"],["Creixement anual","+7,5%","MRF 2025"],["Europa quota","25,8%","IMARC 2025"],["2n mercat mundial","Europa","IMARC 2025"]],
+    momentum:[30,36,43,50,59,68,79,90,102]},
+  restauracio:{nom:"Restauració",audio:"aud_restauracio.mp3",
+    kpis:[["Mercat restauració","30.800 M€","DBK 2025"],["Facturació 2025","+3,1%","INE 2025"],["Rendibilitat 2025","-0,9%","Hostelería"],["Previsió 2026","+3%","Hostelería"]],
+    momentum:[40,42,45,47,50,52,55,57,60]},
+  retail:{nom:"Comerç i retail",audio:"aud_retail.mp3",
+    kpis:[["Comerç Catalunya","19,4% Esp","INE 2024"],["2n mercat d'Espanya","Catalunya","INE 2024"],["Comerç alimentació","2,2/1.000 hab","Mercasa"],["Per sobre mitjana","Sí","Mercasa"]],
+    momentum:[38,42,46,50,55,60,65,71,78]},
+  serveis_legals:{nom:"Assessories i despatxos",audio:"aud_serveis_legals.mp3",
+    kpis:[["Mercat legal Europa","257 Bn USD","MarketLine"],["Creixement mercat","+3,7%","MarketLine"],["Assessories Catalunya","10.688","INE 2025"],["Quota a Espanya","17,2%","INE"]],
+    momentum:[42,46,50,54,58,62,66,70,75]},
+  construccio:{nom:"Construcció i reformes",audio:"aud_construccio.mp3",
+    kpis:[["Creixement 2026","+3,2%","ITeC"],["Creixement 2027","+2,4%","ITeC"],["Motor del sector","habitatge","ITeC"],["Dèficit habitatge Cat","49.500","CC"]],
+    momentum:[36,40,44,48,52,56,60,64,68]}
+};
+
+let audio=null;
+function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');}
+function animaNumero(el,target,suffix,ms){
+  const start=performance.now(), dur=ms||900;
+  function tick(t){
+    const p=Math.min((t-start)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(target*e))+suffix;
+    if(p<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function renderSector(s){
+  const d=SECTORS[s];
+  document.getElementById('sectorNom').textContent=d.nom;
+  document.getElementById('panel').classList.remove('hidden');
+  // KPIs
+  const k=document.getElementById('kpis');
+  k.innerHTML='';
+  d.kpis.forEach((v,i)=>{
+    const c=document.createElement('div');
+    c.className='bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center';
+    c.innerHTML='<div class="num text-3xl md:text-4xl font-black text-spai" data-v="'+v[1]+'">0</div>'
+      +'<div class="text-xs font-semibold text-slate-600 mt-1">'+v[0]+'</div>'
+      +'<div class="text-[10px] text-slate-400">'+v[2]+'</div>';
+    k.appendChild(c);
+    // anima el número — tracta els milers català (8.000 = vuit mil)
+    const raw=v[1].replace(/[^\d.,-]/g,'');
+    const ambPunts = (raw.match(/\./g)||[]).length>0 && raw.includes(',')===false;
+    const norm = ambPunts ? raw.replace(/\./g,'') : raw.replace(',','.');
+    const num=parseFloat(norm)||0;
+    const suf = v[1].includes('%')?'%':v[1].includes('M€')?'M€':v[1].includes('Bn')?' Bn':'';
+    if(!isNaN(num)&&num>0){setTimeout(()=>animaNumero(c.querySelector('.num'),num,suf,900+i*120),200);}
+    else{c.querySelector('.num').textContent=v[1];}
+  });
+  // graf momentum
+  const g=document.getElementById('graf');
+  g.innerHTML='';
+  const mx=Math.max(...d.momentum);
+  d.momentum.forEach((v,i)=>{
+    const h=Math.round(v/mx*100);
+    const el=document.createElement('div');
+    el.className='flex-1 rounded-t-md transition-all duration-500 bg-gradient-to-t from-spai to-gold2';
+    el.style.height='0%';
+    g.appendChild(el);
+    setTimeout(()=>el.style.height=h+'%',100+i*90);
+  });
+  // audio
+  if(audio){audio.pause();audio=null;}
+  audio=new Audio(d.audio);
+  document.getElementById('playIco').textContent='▶';
+  document.getElementById('playTxt').textContent='Escolta la gran notícia';
+  audio.onended=()=>{document.getElementById('playIco').textContent='▶';document.getElementById('playTxt').textContent='Escolta la gran notícia';};
+}
+function play(){
+  if(!audio)return;
+  if(audio.paused){audio.play();document.getElementById('playIco').textContent='⏸';document.getElementById('playTxt').textContent='Sonant...';}
+  else{audio.pause();document.getElementById('playIco').textContent='▶';document.getElementById('playTxt').textContent='Escolta la gran notícia';}
+}
+document.getElementById('playBtn').onclick=play;
+
+const sb=document.getElementById('selectores');
+Object.keys(SECTORS).forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.textContent=SECTORS[s].nom;
+  b.className='px-5 py-2.5 rounded-xl font-semibold transition border-2 '+(i===0?'bg-spai text-white border-spai':'bg-white border-slate-200 text-spai hover:border-spai');
+  b.onclick=()=>{renderSector(s);sb.querySelectorAll('button').forEach(x=>x.className='px-5 py-2.5 rounded-xl font-semibold transition border-2 bg-white border-slate-200 text-spai hover:border-spai');b.className='px-5 py-2.5 rounded-xl font-semibold transition border-2 bg-spai text-white border-spai';};
+  sb.appendChild(b);
+});
+renderSector(Object.keys(SECTORS)[0]);
+
+async function capturaLead(e){e.preventDefault();
+  const f=e.target, d=Object.fromEntries(new FormData(f).entries());
+  d.origen="landing competencia sector"; d.kind="lead";
+  let ok=false;
+  try{const r=await fetch('/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});ok=r.ok;}catch(err){ok=false;}
+  document.getElementById('ok').classList.remove('hidden');
+  f.style.display='none';return false;
+}
+</script>
+</body>
+</html>
